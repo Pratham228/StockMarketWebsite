@@ -1,0 +1,2 @@
+Celery Commands:
+Run celery worker(tasks.py): celery -A tasks worker --pool=solo -l info
