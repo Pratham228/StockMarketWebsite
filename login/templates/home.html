@@ -1,0 +1,202 @@
+
+{% extends "layout.html"%}
+{% block content%}
+    <!-- {% for post in posts %}
+    <article class="media content-section">
+            <div class="media-body">
+              <div class="article-metadata">
+                <a class="mr-2" href="#">{{ post.author }}</a>
+                 <small class="text-muted">{{ post.date_posted }}</small> -->
+              <!-- </div>
+              <h2><a class="article-title" href="{{url_for('posts.post',post_id=post.id) }}">{{ post.name }}</a></h2> -->
+              <!-- <p class="article-content">{{ post.content }}</p> 
+            </div>
+    </article>
+    {% endfor %} -->
+<!-- <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">    -->
+
+<!-- Bootstrap core CSS -->
+<!-- <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap.min.css') }}">
+
+<!-- Custom styles for this template -->
+<!-- <link href="css/business-frontpage.css" rel="stylesheet"> -->
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='business-frontpage.css') }}">
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">
+<script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<style>
+  thead{
+    background-color:black;
+    color: white; 
+  }
+  #myInput {
+  background-image: url('/css/searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 100%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+  </style>
+
+    <article class="media content-section">
+        <div class="media-body">
+          <div class="article-metadata">
+            <h2><a class="text-success mr-2" href="#">Welcome to Spiders Stock Website</a></h2>
+           
+          </div>
+          <p>Explore more about stocks!</p>
+          
+        </div>
+</article>
+
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Type a tickersymbol to search" title="Type in a name">
+<br>
+<div class="container">
+    <table id="myTable" class="table table-hover">
+            <thead >
+              <tr>
+                <th scope="col">Stock Ticker Symbol  <button onclick="sortTable()">Sort</button></th>
+                <th scope="col">Price <button onclick="sortTable1()">Sort</button></th>
+              
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td scope="row">BBC</td>
+                <td id = "d1">{{data['data'][0]}}</td>
+                
+              </tr>
+              <tr>
+                <td scope="row">ABC</td>
+                <td id = "d2">{{data['data'][1]}}</td>
+                
+              </tr>
+              
+            </tbody>
+          </table>
+          
+          
+</div>
+<script>
+    function myFunction() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }       
+      }
+    }
+    </script>
+  <script>
+      function sortTable1() {
+        var table, rows, switching, i, x, y, shouldSwitch;
+        table = document.getElementById("myTable");
+        switching = true;
+        /*Make a loop that will continue until
+        no switching has been done:*/
+        while (switching) {
+          //start by saying: no switching is done:
+          switching = false;
+          rows = table.rows;
+          /*Loop through all table rows (except the
+          first, which contains table headers):*/
+          for (i = 1; i < (rows.length - 1); i++) {
+            //start by saying there should be no switching:
+            shouldSwitch = false;
+            /*Get the two elements you want to compare,
+            one from current row and one from the next:*/
+            x = rows[i].getElementsByTagName("TD")[1];
+            y = rows[i + 1].getElementsByTagName("TD")[1];
+            //check if the two rows should switch place:
+            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+              //if so, mark as a switch and break the loop:
+              shouldSwitch = true;
+              break;
+            }
+          }
+          if (shouldSwitch) {
+            /*If a switch has been marked, make the switch
+            and mark that a switch has been done:*/
+            rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+            switching = true;
+          }
+        }
+      }
+      </script>
+      <script>
+          function sortTable() {
+            var table, rows, switching, i, x, y, shouldSwitch;
+            table = document.getElementById("myTable");
+            switching = true;
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+              //start by saying: no switching is done:
+              switching = false;
+              rows = table.rows;
+              /*Loop through all table rows (except the
+              first, which contains table headers):*/
+              for (i = 1; i < (rows.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /*Get the two elements you want to compare,
+                one from current row and one from the next:*/
+                x = rows[i].getElementsByTagName("TD")[0];
+                y = rows[i + 1].getElementsByTagName("TD")[0];
+                //check if the two rows should switch place:
+                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                  //if so, mark as a switch and break the loop:
+                  shouldSwitch = true;
+                  break;
+                }
+              }
+              if (shouldSwitch) {
+                /*If a switch has been marked, make the switch
+                and mark that a switch has been done:*/
+                rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                switching = true;
+              }
+            }
+          }
+    
+    
+    
+    function rFunction() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function myRepeatFunction() {
+        if (this.readyState == 4 && this.status == 200) {
+          //document.getElementById("demo").innerHTML = 
+          var t = JSON.parse(this.responseText).data;
+          document.getElementById("d1").innerHTML = t[0];
+          document.getElementById("d2").innerHTML = t[1];
+        }
+      }; 
+      xhttp.open("GET", "{{ url_for('main.refresh_data') }}", true);
+      xhttp.send();
+    }
+
+    setInterval(rFunction, 2000);
+    
+    </script>
+      
+<div>
+  <a href = "http://127.0.0.1:5002/">View Historical stock prices</a>
+</div>
+{% endblock content%}

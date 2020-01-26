@@ -1,0 +1,76 @@
+{% extends "layout.html"%}
+{% block content%}
+<div class="content-section">
+        <form method="POST", action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4"> {{ legend }} </legend>
+                
+                
+                <div class="form-group">
+                        {{ form.ticker_symbol.label(class="form-control-label") }}
+                        {% if form.ticker_symbol.errors %}
+                        {{ form.ticker_symbol(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.ticker_symbol.errors %}
+                                <span> {{ error}}</span>
+                            {% endfor %}
+                        </div>    
+                    {% else %}
+                        {{ form.ticker_symbol(class="form-control form-control-lg") }}
+                    {% endif %}
+                        
+                        
+                </div>
+                <div class="form-group">
+                        {{ form.day.label(class="form-control-label") }}
+                        {% if form.day.errors %}
+                        {{ form.day(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.day.errors %}
+                                <span> {{ error}}</span>
+                            {% endfor %}
+                        </div>    
+                    {% else %}
+                        {{ form.day(class="form-control form-control-lg") }}
+                    {% endif %}
+                        
+                </div>
+                <div class="form-group">
+                        {{ form.bank_account_no.label(class="form-control-label") }}
+                        {% if form.bank_account_no.errors %}
+                        {{ form.bank_account_no(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.bank_account_no.errors %}
+                                <span> {{ error}}</span>
+                            {% endfor %}
+                        </div>    
+                    {% else %}
+                        {{ form.bank_account_no(class="form-control form-control-lg") }}
+                    {% endif %}
+                        
+                        
+                </div>    
+                <div class="form-group">
+                        {{ form.no_of_stocks.label(class="form-control-label") }}
+                        {% if form.no_of_stocks.errors %}
+                        {{ form.no_of_stocks(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.no_of_stocks.errors %}
+                                <span> {{ error}}</span>
+                            {% endfor %}
+                        </div>    
+                    {% else %}
+                        {{ form.no_of_stocks(class="form-control form-control-lg") }}
+                    {% endif %}
+                        
+                </div>  
+                
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-success")}}
+            </div>
+
+        </form>
+    </div>
+{% endblock content%}

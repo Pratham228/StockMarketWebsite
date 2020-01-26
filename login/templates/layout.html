@@ -1,0 +1,102 @@
+<html>
+    <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        
+            <!-- Bootstrap CSS -->
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='main.css') }}">
+
+            
+        {% if title %}
+            <title>Stock Website - {{ title }} </title>
+        {% else %} 
+            <title>Stock Website</title>
+        {% endif%}   
+    </head>
+    <body >
+            <header class="site-header">
+                    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+                      <div class="container py-3">
+                        <a class="navbar-brand mr-4" href="/">Spiders</a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+                          <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarToggle">
+                          <div class="navbar-nav mr-auto">
+                            <a class="nav-item nav-link" href="{{url_for('main.home')}}">Home</a>
+                            <a class="nav-item nav-link" href="{{url_for('main.about')}}">About</a>
+                          </div>
+                          <!-- Navbar Right Side -->
+                          <div class="navbar-nav">
+                            {% if current_user.is_authenticated %}
+                              <!-- <a class="nav-item nav-link" href="{{url_for('posts.new_post')}}">New Post</a> -->
+                              <a class="nav-item nav-link" href="{{url_for('stocks.mystocks')}}">My Stocks</a>
+                              <a class="nav-item nav-link" href="{{url_for('users.account')}}">Account</a>
+                              <a class="nav-item nav-link" href="{{url_for('users.logout')}}">Logout</a>
+                            {% else %}
+                              <a class="nav-item nav-link" href="{{url_for('users.login')}}">Login</a>
+                              <a class="nav-item nav-link" href="{{url_for('users.register')}}">Register</a>
+                            {% endif %}  
+                          </div>
+                        </div>
+                      </div>
+                    </nav>
+            </header>
+
+            <div class="bg-success py-3 mb-4 mt-4">
+                <div class="container">
+                  <!-- <div class="row h-100 align-items-center"> -->
+                    <!-- <div class="col-lg-12"> -->
+                      <h2 class="display-4 text-white mt-3">Stock Exchange</h2>
+                    <!-- </div> -->
+                  <!-- </div> -->
+                </div>
+              </div>
+        <main role="main" class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages%}
+                        {% for category,message in messages %}
+                            <div class="alert alert-{{category}}">
+                                {{message}}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% endwith %}
+                    {% block content %}{% endblock %}
+                    </div>
+                    <div class="col-md-4 ">
+                    <div class="content-section bg-dark">
+                        <h3 class="text-white">Task Bar </h3>
+                        <p class='text-white'>Actions:
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-light"><a class="nav-item nav-link " href="{{url_for('bankaccounts.addbankaccount')}}">Add Bank Account</a></li>
+                            <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{url_for('stocks.buy_stocks')}}">Buy Stocks</a></li>
+                            <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{url_for('stocks.sell_stocks')}}">Sell Stocks</a></li>
+                            <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{url_for('stocks.transfer_money')}}">Transfer Money Between bank accounts</a></li>
+                            <li class="list-group-item list-group-item-light"><a class="nav-item nav-link" href="{{url_for('stocks.plan_schedule')}}">Plan a buy schedule</a></li>
+                        </ul>
+                        </p>
+                    </div>
+                    </div>
+                </div>
+        </main>
+        <!-- Footer -->
+  <div class="py-4">
+
+  </div>
+  <footer class="py-4 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white"> Website for stockmarket enthusiasts</p>
+        <p class="m-0 text-center text-white"> spiderswpl@gmail.com</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </body>
+
+</html>
